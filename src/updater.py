@@ -4,6 +4,7 @@ from time import sleep
 import fcntl
 from utils import *
 import builder
+from sys import argv
 
 location="/home/build/CReaMpy_src/"
 
@@ -31,12 +32,21 @@ scp_command = [
 		]
 
 def main():
+	build_stuff()
+	if "once" in argv: return
 	init()
 	run()
+
+def build_stuff():
+	builder.build()
+	check_output(rm_command)
+	check_output(scp_command)
+
 
 def run():
 	with open(lock_file, "w") as f:
 		while True:
+			sleep(minutes(5))
 			try:
 				fcntl.flock(f, opL_nb)
 				print "obtaining lock"
@@ -44,16 +54,13 @@ def run():
 				if check_fun(output):
 					print "Going to update now"
 					#print output
-					builder.build()
-					check_output(rm_command)
-					check_output(scp_command)
+					build_stuff()
 				else:
 					print "no update"
 				print "releasing lock"
 				fcntl.flock(f, opU)
 			except IOError:
 				print "unable to acquire lock"
-			sleep(seconds(10))
 
 def init():
 	#figure out what the number to write is
