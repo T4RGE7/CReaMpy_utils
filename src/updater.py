@@ -15,6 +15,21 @@ git_command = [
 		"pull"
 		]
 
+rm_command = [
+		"ssh",
+		"jpr4gc@labunix01.cs.virginia.edu",
+		"rm",
+		"-rf",
+		"/home/jpr4gc/public_html/CRM/*"
+		]
+
+scp_command = [
+		"scp",
+		"-r",
+		"/home/build/CRM_html/*",
+		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html/CRM"
+		]
+
 def main():
 	init()
 	run()
@@ -28,8 +43,10 @@ def run():
 				output = check_output(git_command, cwd=location)
 				if check_fun(output):
 					print "Going to update now"
-					print output
+					#print output
 					builder.build()
+					check_output(rm_command)
+					check_output(scp_command)
 				else:
 					print "no update"
 				print "releasing lock"
