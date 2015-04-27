@@ -1,6 +1,7 @@
 from ast import literal_eval
 
 location="/home/build/CReaMpy_src/"
+#location="/home/user/Documents/repos/CReaMpy_src/"
 def read_file():
     structure = literal_eval("".join(open(location+"tree/wiki.tree", "r").readlines()))
     return structure

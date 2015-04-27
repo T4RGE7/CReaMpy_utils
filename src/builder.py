@@ -65,7 +65,13 @@ def main():
 		print str(cur) + "\t" + str(up)
 	"""
 
-	remake(header_list)
+	#remake(header_list)
+	"""
+        for cur, dnc, dnnc, dnnnc in header_list:
+		with open("/home/user/Documents/school/notes/" + cur + ".wiki", "r") as r:
+			with open("/home/user/Documents/repos/CReaMpy_src/CRM/" + cur + ".wiki", "w") as w:
+				w.writelines(r.readlines())
+	"""
 
 
 if __name__ == "__main__":

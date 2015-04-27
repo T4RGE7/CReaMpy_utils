@@ -20,14 +20,14 @@ rm_command = [
 		"jpr4gc@labunix01.cs.virginia.edu",
 		"rm",
 		"-rf",
-		"/home/jpr4gc/public_html/CRM/*"
+		"/home/jpr4gc/public_html/CRM_html/*"
 		]
 
 scp_command = [
 		"scp",
 		"-r",
-		"/home/build/CRM_html/*",
-		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html/CRM"
+		"/home/build/CRM_html/",
+		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
 		]
 
 def main():
