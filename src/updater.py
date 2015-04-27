@@ -25,8 +25,8 @@ def run():
 			try:
 				fcntl.flock(f, opL_nb)
 				print "obtaining lock"
-				output = check_output(git_command)
-				if check_fun(output, cwd=location):
+				output = check_output(git_command, cwd=location)
+				if check_fun(output):
 					print "Going to update now"
 					print output
 					builder.build()
