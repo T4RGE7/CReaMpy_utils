@@ -47,6 +47,31 @@ def parse(tree):
 
     return toReturn
 
+def get_depth(tree):
+    toReturn = []
+    todo = [(tree[:],0)]
+    old_depth = 0
+
+    up = None
+    stack = [None]
+
+    while len(todo) > 0:
+        current,depth = todo.pop(0)
+        name = current[0]
+
+        if old_depth > depth:
+            up = stack[depth-old_depth-1]
+            stack = stack[:depth-old_depth]
+        old_depth = depth
+
+        toReturn = [(name, depth)]
+
+        if len(current) != 1:
+            stack += [name]
+            todo = map(lambda a: (a,depth+1), current[1]) + todo
+
+    return toReturn
+
 def main():
     tree = read_file()
     parse(tree)

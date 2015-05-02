@@ -8,6 +8,10 @@ wiki_location="/home/build/CReaMpy_src/"
 header_location="/home/build/CRM/"
 link_format="[[%s|%s]]"
 
+contents = [
+		'=== Contents ==='
+		]
+
 recompile_args = [
 		'bash',
 		'build.sh'
@@ -49,9 +53,23 @@ def remake(tree_list):
 	#print " ".join(recompile_args)
 	call(recompile_args)
 
+def make_contents(depths):
+	toReturn = []
+
+	for name, td in depths:
+		toReturn += "%s* [[%s]]" % ("\t"*(td), name)
+
+	return toReturn
+
 def build():
 	tree = header.read_file()
 	header_list = header.parse(tree)
+	depth = header.get_depth(tree)
+	contents_lines = contents + make_contents(depth)
+
+	with open(wiki_location + "CRM/Contents.wiki", "w") as f:
+		f.writelines(contents_lines)
+
 	remake(header_list)
 
 	
@@ -59,6 +77,10 @@ def main():
 
 	tree = header.read_file()
 	header_list = header.parse(tree)
+	depth = header.get_depth(tree)
+	contents_lines = contents + make_contents(depth)
+
+	print "\n".join(contents_lines)
 
 	"""
 	for cur,prev,up,nex in header_list:
