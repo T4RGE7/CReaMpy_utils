@@ -64,7 +64,7 @@ def get_depth(tree):
             stack = stack[:depth-old_depth]
         old_depth = depth
 
-        toReturn = [(name, depth)]
+        toReturn += [(name, depth)]
 
         if len(current) != 1:
             stack += [name]
