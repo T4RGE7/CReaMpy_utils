@@ -30,6 +30,8 @@ link_list = [
 def remove(s):
 	return reduce(lambda a, (rep,wit): re.sub(rep,wit,a), replace_list, s)
 
+make_line = lambda a: a+"\n"
+
 def remake(tree_list, depth):
 	for current, prev_s, up_s, next_s in tree_list:
 		to_open = wiki_location + "CRM/" + current + ".wiki"
@@ -47,7 +49,8 @@ def remake(tree_list, depth):
 			header = "%s %s %s" % (p, u, n)
 
                         if current == "Contents":
-                            lines = contents + make_contents(depth)
+                            temp = contents + make_contents(depth)
+                            lines = map(make_line, temp)
                         else:
                             lines += get_subcontents(current, depth)
 
