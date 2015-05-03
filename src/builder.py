@@ -63,7 +63,7 @@ def remake(tree_list, depth):
 				out.writelines(lines)
 	#print " ".join(recompile_args)
         with open(header_location + "FOR_RENDER.wiki", "w") as out:
-            out.writelines(lines)
+            out.writelines(whole_CRM)
 	call(recompile_args)
 
 def make_contents(depths):
