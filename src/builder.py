@@ -33,6 +33,7 @@ def remove(s):
 make_line = lambda a: a+"\n"
 
 def remake(tree_list, depth):
+        whole_CRM = []
 	for current, prev_s, up_s, next_s in tree_list:
 		to_open = wiki_location + "CRM/" + current + ".wiki"
 		if not isfile(to_open):
@@ -54,11 +55,15 @@ def remake(tree_list, depth):
                         else:
                             lines += get_subcontents(current, depth)
 
+                        whole_CRM += lines
+
 			lines = [header+"\n"] + lines + ["\n"+header]
 
 			with open(header_location + current + ".wiki", "w") as out:
 				out.writelines(lines)
 	#print " ".join(recompile_args)
+        with open(header_location + "FOR_RENDER.wiki", "w") as out:
+            out.writelines(lines)
 	call(recompile_args)
 
 def make_contents(depths):
