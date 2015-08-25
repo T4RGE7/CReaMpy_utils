@@ -16,6 +16,7 @@ git_command = [
 		"pull"
 		]
 
+"""
 rm_command = [
 		"ssh",
 		"jpr4gc@labunix01.cs.virginia.edu",
@@ -30,13 +31,17 @@ scp_command = [
 		"/home/build/CRM_html/",
 		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
 		]
+"""
 
-rm_command = ["echo", '"I can\'t do that, Dave']
+rm_command = [
+        "rm",
+        "/home/build/CRM_latest.tar.gz"
+        ]
 
 scp_command = [
-        "zip",
-        "-r",
-        "CRM_latest.zip",
+        "tar",
+        "-czf",
+        "/home/build/CRM_latest.tar.gz",
         "/home/build/CRM_html/"
         ]
 
