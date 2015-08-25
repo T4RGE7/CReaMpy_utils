@@ -40,9 +40,11 @@ rm_command = [
 
 scp_command = [
         "tar",
+        "-C",
+        "/home/build/"
         "-czf",
         "/home/build/CRM_latest.tar.gz",
-        "/home/build/CRM_html/"
+        "CRM_html/"
         ]
 
 def main():
