@@ -41,7 +41,7 @@ rm_command = [
 scp_command = [
         "tar",
         "-C",
-        "/home/build/"
+        "/home/build/",
         "-czf",
         "/home/build/CRM_latest.tar.gz",
         "CRM_html/"
