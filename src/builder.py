@@ -9,7 +9,7 @@ header_location="/home/build/CRM/"
 link_format="[[%s|%s]]"
 
 contents = [
-		'=== Contents ==='
+		'== Contents =='
 		]
 
 recompile_args = [
@@ -98,7 +98,7 @@ def get_subcontents(node, depths):
 
     content_list = make_contents(map(lambda (n,d): (n,d-start_depth), depths[start+1:end]))
 
-    return map(lambda a: a+"\n", content_list)
+    return map(make_line, content_list)
 
 
 	

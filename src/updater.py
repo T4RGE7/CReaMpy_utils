@@ -31,6 +31,15 @@ scp_command = [
 		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
 		]
 
+rm_command = ["echo", '"I can\'t do that, Dave']
+
+scp_command = [
+        "zip",
+        "-r",
+        "CRM_latest.zip",
+        "/home/build/CRM_html/"
+        ]
+
 def main():
 	build_stuff()
 	if "once" in argv: return
