@@ -35,16 +35,22 @@ scp_command = [
 
 rm_command = [
         "rm",
-        "/home/build/CRM_latest.tar.gz"
+        "-rf",
+        "/home/build/CRM_latest.tar.gz",
+        "/usr/share/nginx/html/CRM"
         ]
 
-scp_command = [
+package_command = [
         "tar",
         "-C",
         "/home/build/",
         "-czf",
         "/home/build/CRM_latest.tar.gz",
         "CRM_html/"
+        ]
+scp_command = [
+        "cp",
+
         ]
 
 def main():
@@ -56,6 +62,7 @@ def main():
 def build_stuff():
 	builder.build()
 	check_output(rm_command)
+	check_output(package_command)
 	check_output(scp_command)
 
 
