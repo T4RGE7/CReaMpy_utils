@@ -50,7 +50,9 @@ package_command = [
         ]
 scp_command = [
         "cp",
-
+        "-r",
+        "/home/build/CRM_html",
+        "/usr/share/nginx/html/CRM"
         ]
 
 def main():
