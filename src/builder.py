@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 import re
 from os.path import isfile
-from subprocess import call
+from subprocess import call, check_output
 import header 
 
 wiki_location="/home/build/CReaMpy_src/"
@@ -70,7 +70,7 @@ def remake(tree_list, depth):
 	#print " ".join(recompile_args)
         with open(header_location + "FOR_RENDER.wiki", "w") as out:
             out.writelines(whole_CRM)
-	call(move_images_args)
+	check_output(move_images_args)
 	call(recompile_args)
 
 def make_contents(depths):
