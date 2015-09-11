@@ -63,8 +63,8 @@ def main():
 	run()
 
 def build_stuff():
-	builder.build()
 	check_output(rm_command)
+	builder.build()
 	check_output(package_command)
 	check_output(scp_command)
 
