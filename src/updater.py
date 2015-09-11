@@ -38,7 +38,7 @@ rm_command = [
         "-rf",
         "/home/build/CRM_latest.tar.gz",
         "/usr/share/nginx/html/CRM",
-        "/home/build/CRM_html"
+        "/home/build/CRM_html/*"
         ]
 
 package_command = [
