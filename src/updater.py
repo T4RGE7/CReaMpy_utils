@@ -37,8 +37,12 @@ rm_command = [
         "rm",
         "-rf",
         "/home/build/CRM_latest.tar.gz",
-        "/usr/share/nginx/html/CRM",
         "/home/build/CRM_html"
+        ]
+rm_command2 = [
+        "rm",
+        "-rf",
+        "/usr/share/nginx/html/CRM",
         ]
 
 package_command = [
@@ -66,6 +70,7 @@ def build_stuff():
 	check_output(rm_command)
 	builder.build()
 	check_output(package_command)
+        check_output(rm_command2)
 	check_output(scp_command)
 
 
