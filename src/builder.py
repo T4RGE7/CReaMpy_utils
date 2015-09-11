@@ -4,7 +4,7 @@ from os.path import isfile
 from subprocess import call, check_output
 import header 
 
-wiki_location="/home/build/CReaMpy_src/"
+wiki_location="/home/build/CReaMpy_src/CRM/"
 header_location="/home/build/CRM/"
 html_location="/home/build/CRM_html/"
 image_folder="images"
@@ -41,7 +41,7 @@ make_line = lambda a: a+"\n"
 def remake(tree_list, depth):
         whole_CRM = []
 	for current, prev_s, up_s, next_s in tree_list:
-		to_open = wiki_location + "CRM/" + current + ".wiki"
+		to_open = wiki_location + current + ".wiki"
 		if not isfile(to_open):
 			print "Need to make " + to_open
 			continue
