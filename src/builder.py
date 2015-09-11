@@ -6,6 +6,8 @@ import header
 
 wiki_location="/home/build/CReaMpy_src/"
 header_location="/home/build/CRM/"
+image_folder="images"
+
 link_format="[[%s|%s]]"
 
 contents = [
@@ -23,8 +25,11 @@ replace_list = [
 		("[ ]", "")
 		]
 
-link_list = [
-		
+move_images_args = [
+		'cp',
+		'-r',
+		wiki_location + image_folder,
+		header_location + image_folder
 		]
 
 def remove(s):
@@ -64,6 +69,7 @@ def remake(tree_list, depth):
 	#print " ".join(recompile_args)
         with open(header_location + "FOR_RENDER.wiki", "w") as out:
             out.writelines(whole_CRM)
+	call(move_images_args)
 	call(recompile_args)
 
 def make_contents(depths):
