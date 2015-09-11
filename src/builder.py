@@ -70,8 +70,8 @@ def remake(tree_list, depth):
 	#print " ".join(recompile_args)
         with open(header_location + "FOR_RENDER.wiki", "w") as out:
             out.writelines(whole_CRM)
-	check_output(move_images_args)
 	call(recompile_args)
+	check_output(move_images_args)
 
 def make_contents(depths):
 	toReturn = []
