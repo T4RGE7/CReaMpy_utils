@@ -33,6 +33,12 @@ move_images_args = [
 		html_location + image_folder
 		]
 
+url_string = "($URL)"
+wiki_url = "http://192.168.1.4/CRM/"
+
+def replace_location(line):
+	return line.replace(url_string, wiki_url + image_folder + "/");
+
 def remove(s):
 	return reduce(lambda a, (rep,wit): re.sub(rep,wit,a), replace_list, s)
 
@@ -46,7 +52,7 @@ def remake(tree_list, depth):
 			print "Need to make " + to_open
 			continue
 		with open(to_open, "r") as f:
-			lines = f.readlines()
+			lines = map(replace_location, f.readlines())
 			#up, prev, nex = map(remove, [up_s,prev_s,next_s])
 			up, prev, nex = up_s, prev_s, next_s
 			p = "" if prev is None else link_format%(prev,"Previous")
@@ -71,7 +77,7 @@ def remake(tree_list, depth):
         with open(header_location + "FOR_RENDER.wiki", "w") as out:
             out.writelines(whole_CRM)
 	call(recompile_args)
-	check_output(move_images_args)
+	call(move_images_args)
 
 def make_contents(depths):
 	toReturn = []
