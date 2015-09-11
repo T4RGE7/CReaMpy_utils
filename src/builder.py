@@ -6,6 +6,7 @@ import header
 
 wiki_location="/home/build/CReaMpy_src/"
 header_location="/home/build/CRM/"
+html_location="/home/build/CRM_html/"
 image_folder="images"
 
 link_format="[[%s|%s]]"
@@ -29,7 +30,7 @@ move_images_args = [
 		'cp',
 		'-r',
 		wiki_location + image_folder,
-		header_location + image_folder
+		html_location + image_folder
 		]
 
 def remove(s):
