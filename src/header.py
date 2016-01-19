@@ -1,9 +1,10 @@
 from ast import literal_eval
+from config import *
 
-location="/home/build/CReaMpy_src/"
+locs = get_updated_locs(None)
 #location="/home/user/Documents/repos/CReaMpy_src/"
 def read_file():
-    structure = literal_eval("".join(open(location+"tree/wiki.tree", "r").readlines()))
+    structure = literal_eval("".join(open(join_list(locs, [src_git, tree_file]), "r").readlines()))
     return structure
 
 def parse(tree):

@@ -12,25 +12,25 @@ check_string = "Already up-to-date"
 check_fun = lambda a: not check_string in a
 
 git_command = [
-		"git",
-		"pull"
-		]
+        "git",
+        "pull"
+        ]
 
 """
 rm_command = [
-		"ssh",
-		"jpr4gc@labunix01.cs.virginia.edu",
-		"rm",
-		"-rf",
-		"/home/jpr4gc/public_html/CRM_html/*"
-		]
+        "ssh",
+        "jpr4gc@labunix01.cs.virginia.edu",
+        "rm",
+        "-rf",
+        "/home/jpr4gc/public_html/CRM_html/*"
+        ]
 
 scp_command = [
-		"scp",
-		"-r",
-		"/home/build/CRM_html/",
-		"jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
-		]
+        "scp",
+        "-r",
+        "/home/build/CRM_html/",
+        "jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
+        ]
 """
 
 rm_command = [
@@ -61,41 +61,41 @@ scp_command = [
         ]
 
 def main():
-	build_stuff()
-	if "once" in argv: return
-	init()
-	run()
+    build_stuff()
+    if "once" in argv: return
+    init()
+    run()
 
 def build_stuff():
-	check_output(rm_command)
-	builder.build()
-	check_output(package_command)
-        check_output(rm_command2)
-	check_output(scp_command)
+    check_output(rm_command)
+    builder.build()
+    check_output(package_command)
+    check_output(rm_command2)
+    check_output(scp_command)
 
 
 def run():
-	with open(lock_file, "w") as f:
-		while True:
-			sleep(minutes(5))
-			try:
-				fcntl.flock(f, opL_nb)
-				print "obtaining lock"
-				output = check_output(git_command, cwd=location)
-				if check_fun(output):
-					print "Going to update now"
-					#print output
-					build_stuff()
-				else:
-					print "no update"
-				print "releasing lock"
-				fcntl.flock(f, opU)
-			except IOError:
-				print "unable to acquire lock"
+    with open(lock_file, "w") as f:
+        while True:
+            sleep(minutes(5))
+            try:
+                fcntl.flock(f, opL_nb)
+                print "obtaining lock"
+                output = check_output(git_command, cwd=location)
+                if check_fun(output):
+                    print "Going to update now"
+                    #print output
+                    build_stuff()
+                else:
+                    print "no update"
+                print "releasing lock"
+                fcntl.flock(f, opU)
+            except IOError:
+                print "unable to acquire lock"
 
 def init():
-	#figure out what the number to write is
-	pass
+    #figure out what the number to write is
+    pass
 
 if __name__ == "__main__":
-	main()
+    main()
