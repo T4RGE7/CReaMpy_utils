@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 import re
-from os.path import isfile
+from os.path import isfile, join
 from subprocess import call, check_output
 import header 
 import config as c
@@ -9,15 +9,22 @@ locs = c.get_updated_locs(None)
 
 image_folder = locs[c.image_folder]
 
-wiki_location="/home/build/CReaMpy_src/CRM/"
-header_location="/home/build/CRM/"
-html_location="/home/build/CRM_html/"
-image_folder="images"
+wiki_location = c.join_list(locs, [c.src_git, c.wiki_folder])
+wiki_output = c.join_list(locs, [c.output_folder, c.wiki_folder])
+html_location = c.join_list(locs, [c.output_folder, c.html_folder])
 
 link_format="[[%s|%s]]"
 
 contents = [
         '== Contents =='
+        ]
+
+vimwiki_args = [
+        "vim",
+        "+let g:vimwiki_list = [{'path': '%s'}]"%(wiki_output),
+        "+VimwikiIndex",
+        "+VimwikiAll2HTML",
+        "+quit"
         ]
 
 recompile_args = [
@@ -39,7 +46,6 @@ move_images_args = [
         ]
 
 url_string = "($URL)"
-wiki_url = "http://192.168.1.4/CRM/"
 
 def replace_location(line):
     return line.replace(url_string, image_folder);
@@ -52,7 +58,7 @@ make_line = lambda a: a+"\n"
 def remake(tree_list, depth):
     whole_CRM = []
     for current, prev_s, up_s, next_s in tree_list:
-        to_open = wiki_location + current + ".wiki"
+        to_open = join(wiki_location, current + ".wiki")
         if not isfile(to_open):
             print "Need to make " + to_open
             continue
@@ -76,13 +82,14 @@ def remake(tree_list, depth):
 
             lines = [header+"\n"] + lines + ["\n"+header]
 
-            with open(header_location + current + ".wiki", "w") as out:
+            with open(join(wiki_output, current + ".wiki"), "w") as out:
                 out.writelines(lines)
     #print " ".join(recompile_args)
-        with open(header_location + "FOR_RENDER.wiki", "w") as out:
+        with open(join(wiki_output, "FOR_RENDER.wiki"), "w") as out:
             out.writelines(whole_CRM)
-    call(recompile_args)
-    call(move_images_args)
+    call(vimwiki_args)
+    #call(recompile_args)
+    #call(move_images_args)
 
 def make_contents(depths):
     toReturn = []
@@ -101,7 +108,6 @@ def build():
 
 
 def get_subcontents(node, depths):
-
     start = map(lambda (n,d): n, depths).index(node)
     end = start + 1
     for n,d in depths[start+1:]:

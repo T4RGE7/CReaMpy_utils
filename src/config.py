@@ -3,20 +3,21 @@ import sys
 import os
 
 src_git = "src_git"
-wiki_location="wiki_location"
-header_location="header_location"
-html_location="html_location"
-image_folder="images"
+output_folder="output_folder"
 wiki_folder="wiki_folder"
+html_folder="html_folder"
+image_folder="images"
+tar_file="tar_file"
+tree_file="tree_file"
 
 def get_locs():
     return {
-            src_git: "home/build/CReaMpy_src",
+            src_git: "/home/build/CReaMpy_src",
+            output_folder: "/home/build",
             wiki_folder: "CRM",
-            wiki_location:"/home/build/CReaMpy_src/CRM/",
-            header_location:"/home/build/CRM/",
-            html_location:"/home/build/CRM_html/",
+            html_folder: "CRM_html",
             image_folder:"http://192.168.1.4/CRM/images/",
+            tar_file:"CRM_latest.tar.gz",
             tree_file: "tree/wiki.tree",
     }
 
@@ -27,8 +28,6 @@ def our_loc():
 
 def get_updated_locs(loc):
     path = os.path.join(loc if loc is not None else our_loc(), "local.config")
-    print loc
-    print path
     to_return = get_locs()
     if os.path.exists(path):
         with open(path, "r") as f:

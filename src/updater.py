@@ -5,8 +5,15 @@ import fcntl
 from utils import *
 import builder
 from sys import argv
+import config as c
 
-location="/home/build/CReaMpy_src/"
+locs = c.get_updated_locs(None)
+html_loc = c.join_list(locs, [c.output_folder, c.html_folder])
+html_folder = locs[c.html_folder]
+tar_loc = c.join_list(locs, [c.output_folder, c.tar_file])
+tar_dir = locs[c.output_folder]
+
+location=locs[c.src_git]
 
 check_string = "Already up-to-date"
 check_fun = lambda a: not check_string in a
@@ -16,28 +23,11 @@ git_command = [
         "pull"
         ]
 
-"""
-rm_command = [
-        "ssh",
-        "jpr4gc@labunix01.cs.virginia.edu",
-        "rm",
-        "-rf",
-        "/home/jpr4gc/public_html/CRM_html/*"
-        ]
-
-scp_command = [
-        "scp",
-        "-r",
-        "/home/build/CRM_html/",
-        "jpr4gc@labunix01.cs.virginia.edu:/home/jpr4gc/public_html"
-        ]
-"""
-
 rm_command = [
         "rm",
         "-rf",
-        "/home/build/CRM_latest.tar.gz",
-        "/home/build/CRM_html"
+        tar_loc,
+        html_loc
         ]
 rm_command2 = [
         "rm",
@@ -48,30 +38,39 @@ rm_command2 = [
 package_command = [
         "tar",
         "-C",
-        "/home/build/",
+        tar_dir,
         "-czf",
-        "/home/build/CRM_latest.tar.gz",
-        "CRM_html/"
+        tar_loc,
+        html_folder
         ]
+
+print tar_dir
+print tar_loc
+print html_loc
+
 scp_command = [
         "cp",
         "-r",
-        "/home/build/CRM_html",
+        html_loc,
         "/usr/share/nginx/html/CRM"
         ]
 
 def main():
     build_stuff()
-    if "once" in argv: return
+    if "once" in argv or "onlypackage" in argv: return
     init()
     run()
 
 def build_stuff():
-    check_output(rm_command)
-    builder.build()
-    check_output(package_command)
-    check_output(rm_command2)
-    check_output(scp_command)
+    if "onlypackage" in argv:
+        builder.build()
+        check_output(package_command)
+    else:
+        check_output(rm_command)
+        builder.build()
+        check_output(package_command)
+        check_output(rm_command2)
+        check_output(scp_command)
 
 
 def run():
