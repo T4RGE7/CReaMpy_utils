@@ -12,6 +12,7 @@ image_folder = locs[c.image_folder]
 wiki_location = c.join_list(locs, [c.src_git, c.wiki_folder])
 wiki_output = c.join_list(locs, [c.output_folder, c.wiki_folder])
 html_location = c.join_list(locs, [c.output_folder, c.html_folder])
+template_folder = c.join_list(locs, [c.src_git, c.template_folder])
 
 link_format="[[%s|%s]]"
 
@@ -21,11 +22,13 @@ contents = [
 
 vimwiki_args = [
         "vim",
-        "+let g:vimwiki_list = [{'path': '%s'}]"%(wiki_output),
+        "+let g:vimwiki_list = [{'path': '%s', 'template_path': '%s', 'template_default': 'default', 'template_ext': '.html'}]"%(wiki_output, template_folder),
         "+VimwikiIndex",
         "+VimwikiAll2HTML",
         "+quit"
         ]
+
+print " ".join(vimwiki_args)
 
 recompile_args = [
         'bash',

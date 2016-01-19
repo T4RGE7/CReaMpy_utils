@@ -9,6 +9,7 @@ html_folder="html_folder"
 image_folder="images"
 tar_file="tar_file"
 tree_file="tree_file"
+template_folder="template_folder"
 
 def get_locs():
     return {
@@ -19,6 +20,7 @@ def get_locs():
             image_folder:"http://192.168.1.4/CRM/images/",
             tar_file:"CRM_latest.tar.gz",
             tree_file: "tree/wiki.tree",
+            template_folder: "template",
     }
 
 def our_loc():

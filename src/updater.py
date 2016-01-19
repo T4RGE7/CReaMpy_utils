@@ -44,10 +44,6 @@ package_command = [
         html_folder
         ]
 
-print tar_dir
-print tar_loc
-print html_loc
-
 scp_command = [
         "cp",
         "-r",
