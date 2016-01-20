@@ -9,6 +9,9 @@ locs = c.get_updated_locs(None)
 
 image_folder = locs[c.image_folder]
 
+image_from = c.join_list(locs, [c.src_git, c.wiki_folder, c.image_folder])
+image_to = c.join_list(locs, [c.output_folder, c.html_folder, c.image_folder])
+
 wiki_location = c.join_list(locs, [c.src_git, c.wiki_folder])
 wiki_output = c.join_list(locs, [c.output_folder, c.wiki_folder])
 html_location = c.join_list(locs, [c.output_folder, c.html_folder])
@@ -42,14 +45,16 @@ replace_list = [
 move_images_args = [
         'cp',
         '-r',
-        wiki_location + image_folder,
-        html_location + image_folder
+        image_from,
+        image_to
         ]
 
 url_string = "($URL)"
 
 def replace_location(line):
-    return line.replace(url_string, image_folder);
+    t1 = image_folder.strip()
+    temp = "." if len(t1) <= 0 else t1
+    return line.replace(url_string, temp + ("" if temp.endswith("/") else "/"));
 
 def remove(s):
     return reduce(lambda a, (rep,wit): re.sub(rep,wit,a), replace_list, s)
@@ -90,7 +95,7 @@ def remake(tree_list, depth):
             out.writelines(whole_CRM)
     call(vimwiki_args)
     #call(recompile_args)
-    #call(move_images_args)
+    call(move_images_args)
 
 def make_contents(depths):
     toReturn = []
