@@ -49,6 +49,8 @@ move_images_args = [
         image_to
         ]
 
+print " ".join(move_images_args)
+
 url_string = "($URL)"
 
 def replace_location(line):
