@@ -10,6 +10,7 @@ image_folder="images"
 tar_file="tar_file"
 tree_file="tree_file"
 template_folder="template_folder"
+dot="dot"
 
 def get_locs(us):
     return {
@@ -21,6 +22,7 @@ def get_locs(us):
             tar_file:"CRM_latest.tar.gz",
             tree_file: "tree/wiki.tree",
             template_folder: "template",
+            dot: ".",
     }
 
 def our_loc():

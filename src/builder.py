@@ -9,7 +9,7 @@ locs = c.get_updated_locs(None)
 
 image_folder = locs[c.image_folder]
 
-image_from = c.join_list(locs, [c.src_git, c.wiki_folder, c.image_folder])
+image_from = c.join_list(locs, [c.src_git, c.wiki_folder, c.image_folder, c.dot])
 image_to = c.join_list(locs, [c.output_folder, c.html_folder, c.image_folder])
 
 wiki_location = c.join_list(locs, [c.src_git, c.wiki_folder])
@@ -44,7 +44,7 @@ replace_list = [
 
 move_images_args = [
         'cp',
-        '-r',
+        '-a',
         image_from,
         image_to
         ]
