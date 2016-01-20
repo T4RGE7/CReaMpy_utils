@@ -11,10 +11,10 @@ tar_file="tar_file"
 tree_file="tree_file"
 template_folder="template_folder"
 
-def get_locs():
+def get_locs(us):
     return {
             src_git: "/home/build/CReaMpy_src",
-            output_folder: "/home/build",
+            output_folder: os.path.join(us, "../output"),
             wiki_folder: "CRM",
             html_folder: "CRM_html",
             #image_folder:"http://192.168.1.4/CRM/images/",
@@ -29,9 +29,10 @@ def our_loc():
     loc = sys.executable if hasattr(sys, "frozen") else __file__
     return os.path.dirname(unicode(loc, encoding))
 
-def get_updated_locs(loc):
-    path = os.path.join(loc if loc is not None else our_loc(), "local.config")
-    to_return = get_locs()
+def get_updated_locs(g_loc):
+    loc = g_loc if g_loc is not None else our_loc()
+    path = os.path.join(loc, "local.config")
+    to_return = get_locs(loc)
     if os.path.exists(path):
         with open(path, "r") as f:
             config = literal_eval("".join(f.readlines()))
