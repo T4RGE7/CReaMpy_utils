@@ -17,7 +17,6 @@ def get_locs(us):
             output_folder: os.path.join(us, "../output"),
             wiki_folder: "CRM",
             html_folder: "CRM_html",
-            #image_folder:"http://192.168.1.4/CRM/images/",
             image_folder:"images",
             tar_file:"CRM_latest.tar.gz",
             tree_file: "tree/wiki.tree",
