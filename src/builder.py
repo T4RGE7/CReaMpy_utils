@@ -28,8 +28,6 @@ vimwiki_args = [
         "+quit"
         ]
 
-print " ".join(vimwiki_args)
-
 recompile_args = [
         'bash',
         'build.sh'
