@@ -11,7 +11,7 @@ locs = c.get_updated_locs(None)
 html_loc = c.join_list(locs, [c.output_folder, c.html_folder])
 html_folder = locs[c.html_folder]
 tar_loc = c.join_list(locs, [c.output_folder, c.tar_file])
-tar_dir = locs[c.output_folder]
+tar_dir = c.join_list(locs, [c.output_folder, c.html_folder])
 
 location=locs[c.src_git]
 
@@ -41,8 +41,10 @@ package_command = [
         tar_dir,
         "-czf",
         tar_loc,
-        html_folder
+        "./"
         ]
+
+print " ".join(package_command)
 
 scp_command = [
         "cp",
